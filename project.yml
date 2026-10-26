@@ -1,0 +1,25 @@
+name: LidarCapture
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  LidarCapture:
+    type: application
+    platform: iOS
+    sources: [LidarCapture]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.lidarcapture
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+    info:
+      path: LidarCapture/Info.plist
+      properties:
+        CFBundleDisplayName: LidarCapture
+        NSCameraUsageDescription: Camera and LiDAR depth are recorded to build a point cloud.
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities: [arkit]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]

@@ -1,0 +1,21 @@
+name: build-ipa
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate
+      - name: Build unsigned (Sideloadly signs it with your Apple ID)
+        run: |
+          xcodebuild -project LidarCapture.xcodeproj -scheme LidarCapture -configuration Release -sdk iphoneos \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+      - run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/LidarCapture.app Payload/
+          zip -r LidarCapture.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LidarCapture-ipa
+          path: LidarCapture.ipa
