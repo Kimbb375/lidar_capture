@@ -16,6 +16,8 @@ jobs:
       - run: |
           mkdir Payload
           cp -R build/Build/Products/Release-iphoneos/LidarCapture.app Payload/
+          codesign --force --deep --sign - Payload/LidarCapture.app
+          codesign -dv Payload/LidarCapture.app
           zip -r LidarCapture.ipa Payload
       - uses: actions/upload-artifact@v4
         with:
